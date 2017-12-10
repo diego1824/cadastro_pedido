@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="PrjCadastroPedidos" transaction-type="RESOURCE_LOCAL">
+		<class>modelos.Cliente</class>
+		<class>modelos.Vendedor</class>
+		<class>modelos.Pedido</class>
+		<class>modelos.Produto</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Cadastros;create=true"/>
+			<property name="javax.persistence.jdbc.user" value="app"/>
+			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+			<property name="javax.persistence.jdbc.password" value="app"/>
+			<property name="eclipselink.ddl-generation" value="create-tables"/>
+		</properties>
+	</persistence-unit>
+</persistence>
