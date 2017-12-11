@@ -12,7 +12,7 @@ import modelos.Pedido;
 public class PedidoServico {
 	private EntityManagerFactory emf;
 	public PedidoServico(){
-		emf = Persistence.createEntityManagerFactory("CadastrosFinal");
+		emf = Persistence.createEntityManagerFactory("PrjCadastroPedidos");
 	}
 	
 	public void salvar(Pedido pedido){
