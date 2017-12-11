@@ -1,0 +1,125 @@
+<!-- Diego Aparecido de Almeida Pinto -->
+<!-- 0030481421017 -->
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui2="http://java.sun.com/jsf/facelets"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+	<ui:define name="title">
+		<h:outputText value="Cadastro de Pedidos" />
+	</ui:define>
+
+
+	<ui:define name="principal">
+
+		<h1>
+			<p:outputLabel value="Cadastrar Pedidos" />
+		</h1>
+
+		<h:form id="formPedido">
+			<p:panelGrid columns="2">
+				<p:selectOneMenu value="#{PedidoMB.pedido.vendedor}"
+					converter="converterVendedor">
+					<f:selectItem itemValue="" itemLabel="Selecione um Vendedor" />
+					<f:selectItems value="#{VendedorMB.vendedores}" var="ven"
+						itemValue="#{ven}" itemLabel="#{ven.nome}" />
+				</p:selectOneMenu>
+				<p:selectOneMenu value="#{PedidoMB.pedido.cliente}"
+					converter="converterCliente">
+					<f:selectItem itemValue="" itemLabel="Selecione um Cliente" />
+					<f:selectItems value="#{ClienteMB.clientes}" var="cli"
+						itemValue="#{cli}" itemLabel="#{cli.nome}" />
+				</p:selectOneMenu>
+				<p:selectManyMenu value="#{PedidoMB.pedido.produtos}" converter="converterProduto">
+			          <f:selectItems value="#{ProdutoMB.produtos}" var="prd"
+						itemValue="#{prd}" itemLabel="#{prd.descricao}" />
+			      </p:selectManyMenu>
+
+
+
+
+			</p:panelGrid>
+			<p:commandButton value="Salvar" action="#{PedidoMB.salvar()}"
+				update=":formPedido, :formTablePedido:tabelaPedido" />
+		</h:form>
+
+		<br />
+
+
+		<h3>
+			<p:outputLabel value="Pedidos Cadastrados" />
+		</h3>
+		<h:form id="formTablePedido">
+
+			<p:dataTable value="#{PedidoMB.pedidos}" var="aux" id="tabelaPedido"
+				editable="false" paginator="true" rows="5"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="Não há pedido">
+
+				<p:column headerText="Código" filterBy="#{aux.codigo}">
+					<p:outputLabel value="#{aux.codigo}" />
+				</p:column>
+
+
+
+				<p:column headerText="Vendedor" filterBy="#{aux.vendedor.nome}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{aux.vendedor.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="pedidoVendedor" value="#{aux.vendedor.nome}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Cliente" filterBy="#{aux.cliente.nome}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{aux.cliente.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="pedidoCliente" value="#{aux.cliente.nome}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Produto">
+					<p:dataList value="#{aux.produtos}" var="auxprod" id="tabelaProduto">
+						#{auxprod.descricao}
+					</p:dataList>
+				</p:column>
+				
+				
+
+				<p:column style="width:70px" headerText="Opções">
+
+					
+
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+						style="text-align:center" actionListener="#{PedidoMB.remove(aux)}"
+						update="tabelaPedido" />
+				</p:column>
+
+
+
+			</p:dataTable>
+
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+
